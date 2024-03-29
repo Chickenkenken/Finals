@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+      .header {
+            background-color: black;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, .25);
+            padding-left: 20px;
+            padding-right: 20px;
+            color: yellow;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 80px; /* Set a fixed height for the header */
+            z-index: 999; /* Ensure the header stays on top of other content */
+            position: fixed; /* Fixed position to stick on top */
+            top: 0; /* Position it at the top of the screen */
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        h1 {
+            color: yellow;
+            margin-left: 20px; /* Add some space between logo and heading */
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .header {
+                height: 60px; /* Adjust height for smaller screens */
+                padding-left: 10px; /* Reduce padding for smaller screens */
+                padding-right: 10px; /* Reduce padding for smaller screens */
+            }
+
+            h1 {
+                font-size: 1rem; /* Adjust font size for smaller screens */
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .logo {
+                height: 40px; /* Adjust logo size for smaller screens */
+            }
+
+            h1 {
+                font-size: 0.8rem; /* Further reduce font size for even smaller screens */
+            }
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+            margin-top: 80px;
+          }
+
+  .container {
+    max-width: 320px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  h2{
+    -webkit-text-stroke:.5px yellow;
+    font-weight: bold;
+  }
+  label {
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="file"],
+  button {
+    width: 100%;
+    height: 35px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center; /* Center align the text inside input fields */
+  }
+
+  input[type="file"] {
+    display: none; /* Hide file input */
+  }
+
+  .upload-btn {
+    width: calc(100% - 40px); /* Adjusted width */
+    padding: 8px; /* Reduced padding */
+    font-size: 8px;
+    background-color: black;
+    color: yellow;
+    border: 1px solid yellow;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .upload-btn:hover {
+    background-color: yellow;
+    color: black;
+    border:1px solid black;
+  }
+
+  #profile-image-wrapper {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  #profile-image-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 auto;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  #profile-image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  button[type="submit"]{
+    background-color: black;
+    border: 1px solid yellow;
+    color: yellow;
+  }
+  button[type="submit"]:hover {
+    background-color: yellow;
+    border:1px solid black;
+    color: black;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+        <div class="logo-container">
+            <img class="logo" src="originalVoiceLogo.png" alt="LOGO">
+            <h1>The Victims' Outreach and Incidents' Control Environment</h1>
+        </div>
+  </div>
+  <div class="container">
+    <h2>Create Account</h2>
+    <div id="profile-image-wrapper">
+       <div id="profile-image-preview">
+        <img src="#">
+      </div><br>
+      <label for="profile_picture" class="upload-btn">Upload Profile Picture</label>
+      <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)">
+    </div>
+    <form id="registerForm" action="/register" method="post" enctype="multipart/form-data">
+      <input type="text" placeholder="Full Name" id="fullname" name="fullname" required>
+      <input type="text" placeholder="Contact Number" id="contact" name="contact" required>
+      <input type="password" placeholder="Password" id="password" name="password" required>
+      <input type="password" placeholder="Confirm Password" id="confirm_password" name="confirm_password" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    document.querySelector('.upload-btn').addEventListener('click', function() {
+      document.getElementById('profile_picture').click();
+    });
+
+    function previewImage(event) {
+      const fileInput = event.target;
+      const file = fileInput.files[0];
+      const profileImagePreview = document.getElementById('profile-image-preview');
+      const profileImage = profileImagePreview.querySelector('img');
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileImage.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        profileImage.src = '#';
+      }
+    }
+  </script>
+</body>
+</html>
